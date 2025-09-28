@@ -21,7 +21,8 @@ const UpdatePassword = () => {
         }
       })
   
-      const data = await res.json()
+      //ici, remplacer .json par data, non conforme pour TS
+      const data = await res.data()
   
       if (data.status == 201) {
         console.log("utilisateur valide")
@@ -46,16 +47,17 @@ const UpdatePassword = () => {
           position:"top-center"
         })
       } else {
+        //body provoque des bugs en TS, c'ets pourquoi data lui est préférable
         const res = await axios({
           method:"post",
           url: `/${id}/${token}`,
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({password})
+          data: JSON.stringify({password})
         })
   
-        const data = await res.json()
+        const data = await res.data()
   
         if (data.status === 201) {
           setPassword("")

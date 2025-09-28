@@ -26,12 +26,12 @@ export const ResetPassword = () => {
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({email})
+          data: JSON.stringify({email})
         })
   
-        const data = await res.json()
+        const datajson = await res.data()
   
-        if (data.status = 201) {
+        if (datajson.status = 201) {
           setEmail("")
           setMessage(true)
         } else {
