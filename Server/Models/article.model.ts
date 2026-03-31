@@ -63,5 +63,7 @@ const articleSchema = new Schema<IArticle>(
     {timestamps : true}
 )
 
-const articleModel = mongoose.model("article", articleSchema)
-module.exports = articleModel
+export const ArticleModel = model<IArticle>(
+  "MonthlySnapshot",
+  articleSchema
+);
