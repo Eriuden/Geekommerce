@@ -1,5 +1,22 @@
 const mongoose = require("mongoose")
 
+export interface IArticle extends Document {
+  picture : string;
+  name: string;
+  password: string;
+  typeArticle: Date;
+  licence: Date;
+  price : string;
+  comments : [
+    commenterId: string,
+    commenterName : string,
+    text: string,
+    timestamp: Number
+  ],
+  likers: [string],
+  dislikers: [string]
+}
+
 const articleSchema = new mongoose.Schema(
     {
         picture: {
