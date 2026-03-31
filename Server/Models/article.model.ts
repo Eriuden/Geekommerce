@@ -1,11 +1,12 @@
+import { Schema, Document, model } from "mongoose";
+
 const mongoose = require("mongoose")
 
 export interface IArticle extends Document {
   picture : string;
   name: string;
-  password: string;
-  typeArticle: Date;
-  licence: Date;
+  typeArticle: string;
+  licence: string;
   price : string;
   comments : [
     commenterId: string,
@@ -17,60 +18,45 @@ export interface IArticle extends Document {
   dislikers: [string]
 }
 
-const articleSchema = new mongoose.Schema(
+const articleSchema = new Schema<IArticle>(
     {
         picture: {
-            type: String,
             required: true 
         },
 
         name: {
-            type: String,
             trim: true,
             maxlength: 200,
             required: true,
         },
 
         typeArticle: {
-            type: String,
             trim: true,
             maxlength: 20,
             required: true,
         },
 
         licence: {
-            type: String,
             trim: true,
             maxlength: 500,
             required: true,
         },
 
         price: {
-            type: String,
             trim: true,
             max: 10,
             required: true,
         },
 
         comments: {
-            type: [
-                {
-                    commenterId: String,
-                    commenterName: String,
-                    text: String,
-                    timeStamp: Number,
-                }
-            ],
             required: true,
         },
 
         likers: {
-            type: [String],
             required: true,
         },
 
         dislikers: {
-            type: [String],
             required: true,
         }
     },
