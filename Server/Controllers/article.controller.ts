@@ -10,6 +10,10 @@ import { uploadErrors } from "../utils/error.utils";
 const ObjectId = mongoose.Types.ObjectId;
 const pipeline = promisify(stream.pipeline);
 
+<<<<<<< HEAD
+=======
+// Types
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
 interface MulterFile {
   detectedMimeType?: string;
   size: number;
@@ -20,6 +24,10 @@ interface CustomRequest extends Request {
   file?: MulterFile;
 }
 
+<<<<<<< HEAD
+=======
+// READ
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
 export const readArticle = async (_req: Request, res: Response) => {
   try {
     const docs = await articleModel.find().sort({ createdAt: -1 });
@@ -30,10 +38,15 @@ export const readArticle = async (_req: Request, res: Response) => {
   }
 };
 
+<<<<<<< HEAD
 export const createArticle = async (
   req: CustomRequest,
   res: Response
 ) => {
+=======
+// CREATE
+export const createArticle = async (req: CustomRequest, res: Response) => {
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
   let fileName: string | undefined;
 
   if (req.file) {
@@ -65,7 +78,11 @@ export const createArticle = async (
   }
 
   try {
+<<<<<<< HEAD
     const article = await articleModel.create({
+=======
+    const newArticle = await articleModel.create({
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
       picture: fileName
         ? `./uploads/articleImages/${fileName}`
         : "",
@@ -75,12 +92,20 @@ export const createArticle = async (
       price: req.body.price,
     });
 
+<<<<<<< HEAD
     return res.status(201).json(article);
+=======
+    return res.status(201).json(newArticle);
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
   } catch (error) {
     return res.status(400).send(error);
   }
 };
 
+<<<<<<< HEAD
+=======
+// UPDATE
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
 export const updateArticle = async (req: Request, res: Response) => {
   if (!ObjectId.isValid(req.params.id)) {
     return res.status(400).send("Id inconnue: " + req.params.id);
@@ -103,11 +128,19 @@ export const updateArticle = async (req: Request, res: Response) => {
 
     res.send(updated);
   } catch (err) {
+<<<<<<< HEAD
     console.log("Erreur update :", err);
+=======
+    console.log("Erreur d'update :", err);
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
     res.status(500).send(err);
   }
 };
 
+<<<<<<< HEAD
+=======
+// DELETE
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
 export const deleteArticle = async (req: Request, res: Response) => {
   if (!ObjectId.isValid(req.params.id)) {
     return res.status(400).send("Id inconnue: " + req.params.id);
@@ -122,7 +155,16 @@ export const deleteArticle = async (req: Request, res: Response) => {
   }
 };
 
+<<<<<<< HEAD
 export const likeArticle = async (req: Request, res: Response) => {
+=======
+// LIKE
+export const likeArticle = async (req: Request, res: Response) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    return res.status(400).send("Id inconnue");
+  }
+
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
   try {
     await articleModel.findByIdAndUpdate(req.params.id, {
       $addToSet: { likers: req.body.id },
@@ -140,7 +182,16 @@ export const likeArticle = async (req: Request, res: Response) => {
   }
 };
 
+<<<<<<< HEAD
 export const dislikeArticle = async (req: Request, res: Response) => {
+=======
+// DISLIKE
+export const dislikeArticle = async (req: Request, res: Response) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    return res.status(400).send("Id inconnue");
+  }
+
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
   try {
     await articleModel.findByIdAndUpdate(req.params.id, {
       $addToSet: { dislikers: req.body.id },
@@ -158,6 +209,10 @@ export const dislikeArticle = async (req: Request, res: Response) => {
   }
 };
 
+<<<<<<< HEAD
+=======
+// UNLIKE
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
 export const unlikeArticle = async (req: Request, res: Response) => {
   try {
     await articleModel.findByIdAndUpdate(req.params.id, {
@@ -176,10 +231,15 @@ export const unlikeArticle = async (req: Request, res: Response) => {
   }
 };
 
+<<<<<<< HEAD
 export const undislikeArticle = async (
   req: Request,
   res: Response
 ) => {
+=======
+// UNDISLIKE
+export const undislikeArticle = async (req: Request, res: Response) => {
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
   try {
     await articleModel.findByIdAndUpdate(req.params.id, {
       $pull: { dislikers: req.body.id },
@@ -197,10 +257,15 @@ export const undislikeArticle = async (
   }
 };
 
+<<<<<<< HEAD
 export const commentArticle = async (
   req: Request,
   res: Response
 ) => {
+=======
+// COMMENT
+export const commentArticle = async (req: Request, res: Response) => {
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
   try {
     const updated = await articleModel.findByIdAndUpdate(
       req.params.id,
@@ -223,10 +288,15 @@ export const commentArticle = async (
   }
 };
 
+<<<<<<< HEAD
 export const editCommentArticle = async (
   req: Request,
   res: Response
 ) => {
+=======
+// EDIT COMMENT
+export const editCommentArticle = async (req: Request, res: Response) => {
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
   try {
     const doc = await articleModel.findById(req.params.id);
 
@@ -236,24 +306,36 @@ export const editCommentArticle = async (
       c._id.equals(req.body.commentId)
     );
 
+<<<<<<< HEAD
     if (!comment) {
       return res.status(404).send("Commentaire introuvable");
     }
+=======
+    if (!comment) return res.status(404).send("Commentaire introuvable");
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
 
     comment.text = req.body.text;
 
     await doc.save();
+<<<<<<< HEAD
 
+=======
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
     res.send(doc);
   } catch (err) {
     res.status(400).send(err);
   }
 };
 
+<<<<<<< HEAD
 export const deleteCommentArticle = async (
   req: Request,
   res: Response
 ) => {
+=======
+// DELETE COMMENT
+export const deleteCommentArticle = async (req: Request, res: Response) => {
+>>>>>>> a308bc7c0dea5e72f6ae51582b34b71f60cb5381
   try {
     const updated = await articleModel.findByIdAndUpdate(
       req.params.id,
